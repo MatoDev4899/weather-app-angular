@@ -1,0 +1,223 @@
+<div class="card" *ngIf="weatherData">
+  <h1 class="error-message" *ngIf="errorMessage">{{ errorMessage }}</h1>
+  <div class="title">
+   <app-user-input></app-user-input>
+    <div class="filters-switch">
+      <p>Show Filters</p>
+      <p-inputSwitch  [(ngModel)]="filterSwitch"></p-inputSwitch>
+    </div>
+  </div>
+    <div class="container">
+      <div class="no-data">
+        <h3 *ngIf="haveData === false">No data found. Please select a date</h3>
+      </div>
+      <div class="invalid-data">
+        <h3 *ngIf="invalidDate" >No data available for selected date. Please choose different date.</h3>
+      </div>
+      <div *ngIf="weatherDataLoading" class="load-container">
+        <div class="load-speeding-wheel"></div>
+      </div>
+      <p-table
+      *ngIf="weatherData"
+        #dt
+        [value]="weatherData"
+        [scrollable]="true"
+        scrollHeight="flex"
+        [globalFilterFields]="filterFields"
+        [rows]="10"
+        [paginator]="true"
+      >
+      <ng-template pTemplate="caption">
+        <div *ngIf="filterSwitch" class="flex-filter">
+            <button pButton label="Clear"
+            class="p-button-outlined"
+            icon="pi pi-filter-slash"
+            (click)="clearFilters(dt)">
+          </button>
+            <span >
+                <i class="pi pi-search"></i>
+                <input
+                class="filter-input"
+                pInputText
+                type="text"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+            </span>
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header">
+        <tr class="cols">
+          <th pSortableColumn="time">
+            <fa-icon icon="clock"></fa-icon>
+             Time
+            <span>
+              <p-sortIcon field="time"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                display="menu"
+                type="numeric"
+                field="time"></p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="temperature">
+            <fa-icon icon="temperature-high"></fa-icon>
+             Temperature
+            <span>
+              <p-sortIcon field="temperature"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                display="menu"
+                type="numeric"
+                field="temperature">
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="humidity">
+            <fa-icon icon="percent"></fa-icon>
+             Humidity
+            <span>
+              <p-sortIcon field="humidity"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                field="humidity"
+                matchMode="between"
+                display="menu"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false">
+                <!-- slider filter -->
+                <ng-template pTemplate="filter" let-filter="filterCallback">
+                  <p-slider [ngModel]="sliderValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                    <div class="slider-values">
+                      <span *ngFor="let value of sliderValues">{{value}}</span>
+                    </div>
+                </ng-template>
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="wind">
+            <fa-icon icon="wind"></fa-icon>
+             Wind Speed
+            <span>
+              <p-sortIcon field="wind"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                display="menu"
+                type="numeric"
+                field="wind">
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="pressure">
+            <fa-icon icon="gem"></fa-icon>
+             Air Pressure
+            <span>
+              <p-sortIcon field="pressure"></p-sortIcon>
+              <p-columnFilter *ngIf="filterSwitch" display="menu" type="number" field="pressure"></p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="direction">
+            <fa-icon icon="directions"></fa-icon>
+             Wind Direction
+            <span>
+              <p-sortIcon field="direction"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                field="direction"
+                matchMode="in"
+                display="menu"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false">
+                <!-- multiselect filter options -->
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect
+                    [ngModel]="value"
+                    [options]="windDirections"
+                    placeholder="Any"
+                    (onChange)="filter($event.value)"
+                    optionLabel="direction"
+                    optionValue="direction">
+                    <ng-template let-option pTemplate="item">
+                      <div class="p-multiselect-wind-option">
+                        <span style="margin-left: 5px;">{{option.direction}}</span>
+                      </div>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="precipitation.amount">
+            <fa-icon icon="water"></fa-icon>
+             Precipitation
+            <span>
+              <p-sortIcon field="precipitation.amount"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                type="boolean"
+                field="precipitation.didRain"
+                display="menu">
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="cloudcover">
+            <fa-icon icon="cloud"></fa-icon>
+             Cloudcover
+            <span>
+              <p-sortIcon field="cloudcover"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                field="cloudcover"
+                matchMode="between"
+                display="menu"
+                [showMatchModes]="false"
+                [showOperator]="false"
+                [showAddButton]="false">
+                <!-- slider filter -->
+                <ng-template pTemplate="filter" let-filter="filterCallback">
+                  <p-slider [ngModel]="sliderValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                    <div class="slider-values">
+                      <span *ngFor="let value of sliderValues">{{value}}</span>
+                    </div>
+                </ng-template>
+              </p-columnFilter>
+            </span>
+          </th>
+
+          <th pSortableColumn="soilTemperature">
+            <fa-icon icon="temperature-high"></fa-icon>
+             Soil Temperature
+            <span>
+              <p-sortIcon field="soilTemperature"></p-sortIcon>
+              <p-columnFilter
+                *ngIf="filterSwitch"
+                display="menu"
+                type="numeric"
+                field="soilTemperature"></p-columnFilter>
+            </span>
+          </th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-weather>
+          <tr>
+          <td field="time">{{weather.time | date : 'shortTime'}}</td>
+          <td field="temperature">{{weather.temperature}}&deg;C</td>
+          <td field="humidity">{{weather.humidity}}%</td>
+          <td field="wind">{{weather.wind}} km/h</td>
+          <td field="pressure">{{weather.pressure}} hPa</td>
+          <td field="direction">{{weather.direction}}</td>
+          <td field="precipitation.didRain">{{weather.precipitation.amount}} mm</td>
+          <td field="cloudcover">{{weather.cloudcover}}%</td>
+          <td field="soilTemperature">{{weather.soilTemperature}}&deg;C</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+</div>

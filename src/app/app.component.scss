@@ -1,0 +1,56 @@
+.tab-menu {
+  background-color: #2a323d;
+  padding: 5px 20px;
+  margin-top: 50px;
+ }
+header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background-color: #2a323d;
+  color: white;
+  -webkit-box-shadow: 0 5px 6px -6px rgb(62, 52, 78);
+  -moz-box-shadow: 0 5px 6px -6px rgb(99, 90, 116);
+  box-shadow: 0 5px 6px -6px rgb(76, 73, 102);
+}
+.home-button {
+  height: 100%;
+  color: rgb(221, 221, 221);
+  width: 50px;
+  border: none;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.home-button:hover {
+  color: white;
+}
+.weather-data-button, .chart-button, .heat-index-button {
+  height: 100%;
+  color: rgb(221, 221, 221);
+  background-color: #2a323d;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 25px;
+  border: none;
+  cursor: pointer;
+}
+.weather-data-button:hover, .chart-button:hover, .heat-index-button:hover {
+  color: white;
+  border-bottom: solid 2px whitesmoke;
+}
+fa-icon {
+  margin-right: 3px;
+  color: rgb(221, 221, 221);
+}
+.active {
+  border-bottom: 2px solid white;
+  color: white;
+}
+header div {
+  padding-bottom: 1px;
+  height: 100%;
+}

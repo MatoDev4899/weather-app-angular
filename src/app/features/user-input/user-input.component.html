@@ -1,0 +1,29 @@
+<form class="user-input" [formGroup]="userInput">
+  <p-dropdown [options]="cities" formControlName="selectedCity" placeholder="Select a city" optionLabel="name"></p-dropdown>
+  <p> weather data for: </p>
+  <button
+    [disabled]="earliestDateLimit || !selectedDate.value[1]"
+    class="pi pi-chevron-left"
+    (click)="onPreviousPeriodClick()"
+    pTooltip="Earliest available date is for {{minDate | date}}"
+    tooltipPosition="left"
+    [tooltipDisabled]="!earliestDateLimit">
+  </button>
+  <p-calendar
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    dateFormat="dd/mm/yy"
+    (onSelect)="onDateSelect()"
+    class="calendar"
+    placeholder="Choose a date"
+    selectionMode="range"
+    formControlName="selectedDates"
+    [readonlyInput]="true">
+  </p-calendar>
+  <button [disabled]="latestDateLimit || !selectedDate.value[1]"
+    class="pi pi-chevron-right"
+    (click)="onNextPeriodClick()"
+    pTooltip="Latest available date is for {{maxDate | date}}"
+    [tooltipDisabled]="!latestDateLimit">
+  </button>
+</form>

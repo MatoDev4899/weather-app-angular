@@ -1,1 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: Montserrat;
+  src: url(assets/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+}
+* {
+  font-family: Montserrat;
+  box-sizing: border-box;
+}
+body {
+  padding: 1em;
+  background-image: url(..//src/assets/1630432.jpg);
+  background-size: cover;
+}
+.error-message {
+  color: red;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+  text-align: center;
+}
+.p-inputnumber-input {
+  height: 51px;
+}
+
+/* Loader styling */
+
+.load-container {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+}
+.load-speeding-wheel {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 63px;
+  height: 63px;
+  margin: 0 auto;
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: load-spin 500ms infinite linear;
+  -o-animation: load-spin 500ms infinite linear;
+  -ms-animation: load-spin 500ms infinite linear;
+  -webkit-animation: load-spin 500ms infinite linear;
+  -moz-animation: load-spin 500ms infinite linear;
+}
+@keyframes load-spin {
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes load-spin {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-ms-keyframes load-spin {
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes load-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes load-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.no-data {
+  position: absolute;
+  bottom: 40%;
+  left: 37%;
+  z-index: 1;
+}
+.invalid-data {
+  position: absolute;
+  bottom: 40%;
+  left: 30%;
+  z-index: 1;
+}

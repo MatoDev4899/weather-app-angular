@@ -1,0 +1,13 @@
+.user-input {
+  display: flex;
+  align-items: center;
+}
+.user-input p {
+  margin: 0 10px
+}
+form button {
+  height: 39.1px;
+  background-color: rgb(32, 38, 46);
+  border: thin solid rgb(63, 75, 91);
+  cursor: pointer;
+}

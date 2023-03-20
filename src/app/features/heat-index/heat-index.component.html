@@ -1,0 +1,135 @@
+<div class="container">
+  <p>
+    <strong
+      >Choose units, fill in the temperature and humidity then click on
+      'Calculate' to see the Heat Index temperature.</strong
+    >
+  </p>
+  <form [formGroup]="heatIndexForm" class="wrapper">
+    <div class="temperature-row">
+      <p class="temperature-text">Air Temperature</p>
+      <div>
+        <div class="inputWrapper">
+          <input
+            formControlName="temperature"
+            class="form-control"
+            pInputText
+          />
+          <div class="unit">&deg;</div>
+          <small
+            class="p-error block"
+            *ngIf="
+              heatIndexForm.controls['temperature'].hasError('required') &&
+              heatIndexForm.controls['temperature'].dirty
+            "
+          >
+            Temperature required!
+          </small>
+          <small
+            class="p-error block"
+            *ngIf="
+              heatIndexForm.controls['temperature'].hasError(
+                'minTemperature'
+              ) && heatIndexForm.controls['temperature'].dirty
+            "
+          >
+            Temperature must be
+            {{ heatIndexForm.controls["temperature"].errors.minTemperature }}
+            &deg;{{ temperatureUnit.value.code }} or higher!
+          </small>
+          <small
+            class="p-error block"
+            *ngIf="
+              heatIndexForm.controls['temperature'].hasError('pattern') &&
+              heatIndexForm.controls['temperature'].dirty
+            "
+          >
+            Temperature must be a number!
+          </small>
+        </div>
+      </div>
+      <p-dropdown
+        class="form-control"
+        [style]="{ height: '51px', paddingTop: '5px', marginLeft: '5px' }"
+        formControlName="temperatureUnit"
+        [options]="temperatureUnits"
+        optionLabel="units"
+      >
+      </p-dropdown>
+    </div>
+    <div class="humidity-row">
+      <p class="humidity-text">Relative Humidity</p>
+      <div class="inputWrapper">
+        <input formControlName="humidity" class="form-control" pInputText />
+        <div class="unit">%</div>
+        <small
+          class="p-error block"
+          *ngIf="
+            heatIndexForm.controls['humidity'].hasError('required') &&
+            heatIndexForm.controls['humidity'].dirty
+          "
+        >
+          Humidity required!
+        </small>
+        <small
+          class="p-error block"
+          *ngIf="
+            heatIndexForm.controls['humidity'].hasError('min') ||
+            (heatIndexForm.controls['humidity'].hasError('max') &&
+              heatIndexForm.controls['humidity'].dirty)
+          "
+        >
+          Humidity must be 0% - 100%
+        </small>
+        <small
+          class="p-error block"
+          *ngIf="
+            heatIndexForm.controls['humidity'].hasError('pattern') &&
+            heatIndexForm.controls['humidity'].dirty
+          "
+        >
+          Humidity must be a number!
+        </small>
+      </div>
+    </div>
+    <div class="calculate-flex">
+      <button
+        class="form-control"
+        (click)="onCalculateButtonClick()"
+        pButton
+        label="Calculate"
+      ></button>
+    </div>
+  </form>
+  <div *ngIf="result">
+    <p>
+      <strong
+        >Heat Index Temperature: {{ result | number : "1.2-2" }}&deg;{{
+          resultTemperatureUnit.code
+        }}</strong
+      >
+    </p>
+    <p>{{ resultComment }}</p>
+  </div>
+  <div class="history" *ngIf="resultHistory.length > 0">
+    <h1>Previous calculations</h1>
+    <p-table [value]="resultHistory" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Heat Index</th>
+          <th class="heat-index-effect">Effect on the body</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-history>
+        <tr>
+          <td>
+            {{ history.result | number : "1.2-2" }}&deg;{{
+              history.temperatureUnit
+            }}
+          </td>
+          <td>{{ history.resultComment }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
