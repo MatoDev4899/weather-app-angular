@@ -1,4 +1,5 @@
 # WeatherApp
+[Live preview](https://zippy-youtiao-f13f56.netlify.app/weather-data)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
 
