@@ -1,7 +1,7 @@
 # Angular Historical Weather Application
 [Live preview](https://zippy-youtiao-f13f56.netlify.app)
 
-Angular Historical Weather Data App is a web application built using Angular framework and utilizing the free open-meteo.com API to retrieve historical weather data. The app has been designed to provide users with an intuitive and easy-to-use interface for accessing weather data for any specified location and date range.
+Angular Historical Weather Data App is a web application built using Angular framework and utilizing the free open-meteo.com API to retrieve historical weather data. The app has been designed to provide users with an intuitive and easy-to-use interface for accessing weather data for specified location and date range.
 
 The app is organized into three main tabs, each serving a distinct purpose. The first tab displays a weather table with all the available data for the selected location and date range. The data includes temperature, pressure, humidity, wind speed, and direction, among others. The user can sort and filter the data to get a clear understanding of the weather patterns for the selected period.
 
