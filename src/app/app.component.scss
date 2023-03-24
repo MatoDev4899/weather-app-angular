@@ -2,7 +2,7 @@
   background-color: #2a323d;
   padding: 5px 20px;
   margin-top: 50px;
- }
+}
 header {
   position: absolute;
   display: flex;
@@ -18,17 +18,19 @@ header {
   box-shadow: 0 5px 6px -6px rgb(76, 73, 102);
 }
 .home-button {
+  background-color: #303741;
   height: 100%;
-  color: rgb(221, 221, 221);
   width: 50px;
   border: none;
   margin-right: 5px;
   cursor: pointer;
 }
-.home-button:hover {
+.home-button:hover fa-icon {
   color: white;
 }
-.weather-data-button, .chart-button, .heat-index-button {
+.weather-data-button,
+.chart-button,
+.heat-index-button {
   height: 100%;
   color: rgb(221, 221, 221);
   background-color: #2a323d;
@@ -38,7 +40,9 @@ header {
   border: none;
   cursor: pointer;
 }
-.weather-data-button:hover, .chart-button:hover, .heat-index-button:hover {
+.weather-data-button:hover,
+.chart-button:hover,
+.heat-index-button:hover {
   color: white;
   border-bottom: solid 2px whitesmoke;
 }

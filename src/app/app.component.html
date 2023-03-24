@@ -1,11 +1,27 @@
 <header>
-  <button class="home-button" routerLink="/home"><fa-icon icon="home"></fa-icon></button>
+  <button class="home-button" routerLink="/home">
+    <fa-icon icon="home"></fa-icon>
+  </button>
   <div *ngIf="isCitySelected">
-    <button class="weather-data-button" routerLinkActive="active" routerLink="/weather-data"><fa-icon icon="table"></fa-icon>Weather Data</button>
-    <button class="chart-button" routerLinkActive="active" routerLink="/chart"><fa-icon icon="chart-line"></fa-icon>Chart</button>
-    <button class="heat-index-button" routerLinkActive="active" routerLink="/heat-index"><fa-icon icon="calculator"></fa-icon>Heat Index Calculator</button>
+    <button
+      class="weather-data-button"
+      routerLinkActive="active"
+      routerLink="/weather-data"
+    >
+      <fa-icon icon="table"></fa-icon>Weather Data
+    </button>
+    <button class="chart-button" routerLinkActive="active" routerLink="/chart">
+      <fa-icon icon="chart-line"></fa-icon>Chart
+    </button>
+    <button
+      class="heat-index-button"
+      routerLinkActive="active"
+      routerLink="/heat-index"
+    >
+      <fa-icon icon="calculator"></fa-icon>Heat Index Calculator
+    </button>
   </div>
 </header>
-<div class="tab-menu" >
+<div class="tab-menu">
   <router-outlet></router-outlet>
 </div>

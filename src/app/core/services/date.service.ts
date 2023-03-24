@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { WeatherService } from 'src/app/core/services/weather.service';
 import { City } from 'src/app/shared/models/City.model';
 
@@ -13,10 +12,10 @@ export class DateService {
   minDate: Date = new Date();
   isLatestDate: boolean;
   isEarliestDate: boolean;
+
   constructor(
     private weatherService: WeatherService,
-    private datePipe: DatePipe,
-    private router: Router
+    private datePipe: DatePipe
   ) {
     this.minDate.setDate(this.minDate.getDate() - 18250);
     this.maxDate.setDate(this.maxDate.getDate() - 8);
@@ -57,6 +56,14 @@ export class DateService {
       return;
     }
     form.controls['selectedDates'].setValue([startDate, endDate]);
+    sessionStorage.setItem(
+      'startDate',
+      this.datePipe.transform(startDate, 'yyyy-MM-dd')
+    );
+    sessionStorage.setItem(
+      'endDate',
+      this.datePipe.transform(endDate, 'yyyy-MM-dd')
+    );
     this.weatherService.coordinatesSubject.next({
       lat: lat,
       lon: lon,
@@ -81,6 +88,14 @@ export class DateService {
       return;
     }
     form.controls['selectedDates'].setValue([startDate, endDate]);
+    sessionStorage.setItem(
+      'startDate',
+      this.datePipe.transform(startDate, 'yyyy-MM-dd')
+    );
+    sessionStorage.setItem(
+      'endDate',
+      this.datePipe.transform(endDate, 'yyyy-MM-dd')
+    );
     this.weatherService.coordinatesSubject.next({
       lat: lat,
       lon: lon,
@@ -106,11 +121,6 @@ export class DateService {
     ) {
       return;
     }
-    if (this.router.url === '/weather-data') {
-      this.refreshRoute('/weather-data');
-    } else {
-      this.refreshRoute('/chart');
-    }
     this.isLatestDate = false;
     this.isEarliestDate = false;
     const lat: string = form.controls['selectedCity'].value.lat;
@@ -125,11 +135,5 @@ export class DateService {
       startDate: startDate,
       endDate: endDate,
     });
-  }
-
-  private refreshRoute(url: string): void {
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate([url]));
   }
 }

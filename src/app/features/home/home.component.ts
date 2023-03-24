@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private initMap(): void {
     const mapLocationMarker: L.Icon<L.IconOptions> = L.icon({
-      iconUrl: 'marker-icon.png',
+      iconUrl: 'assets/marker.png',
       iconSize: [30, 45],
       iconAnchor: [16, 45],
     });
