@@ -22,6 +22,23 @@ export class WeatherService {
     { direction: 'E' },
     { direction: 'W' },
   ];
+  options = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem: any) => {
+            let unit: string;
+            if (tooltipItem.dataset.label === 'Temperature') {
+              unit = '°C';
+            } else if (tooltipItem.dataset.label === 'Humidity') {
+              unit = '%';
+            } else unit = 'km/h';
+            return `${tooltipItem.dataset.label}: ${tooltipItem.formattedValue}${unit}`;
+          },
+        },
+      },
+    },
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -80,14 +97,17 @@ export class WeatherService {
   ): Observable<ChartData> {
     return this.getWeatherData(lat, lon, startDate, endDate).pipe(
       map((historicalWeatherData: WeatherData) => {
-        const data = historicalWeatherData.hourly['temperature_2m'].map(
-          (value: string, i: number) => {
-            return {
+        const data: WeatherDataItem[] = [];
+        historicalWeatherData.hourly['temperature_2m'].forEach((value, i) => {
+          data.push(
+            new WeatherDataItem({
               temperature: value,
               time: historicalWeatherData.hourly['time'][i],
-            };
-          }
-        );
+              humidity: historicalWeatherData.hourly['relativehumidity_2m'][i],
+              wind: historicalWeatherData.hourly['windspeed_10m'][i],
+            })
+          );
+        });
         const labels: string[] = data.map((item: ChartLabel) => item.time);
         const datasets: Dataset[] = [
           new Dataset(
@@ -97,7 +117,24 @@ export class WeatherService {
             '#42A5F5',
             0.4
           ),
+          new Dataset(
+            'Humidity',
+            data.map((item: ChartLabel) => item.humidity),
+            false,
+            '#FFA500',
+            0.4,
+            true
+          ),
+          new Dataset(
+            'Wind Speed',
+            data.map((item: ChartLabel) => item.wind),
+            false,
+            '#FF0000',
+            0.4,
+            true
+          ),
         ];
+
         return new ChartData(labels, datasets);
       })
     );

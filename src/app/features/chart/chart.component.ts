@@ -29,6 +29,10 @@ export class ChartComponent implements OnInit, OnDestroy {
     this.watchForCoordinatesAndDateChanges();
   }
 
+  get options() {
+    return this.weatherService.options;
+  }
+
   private watchForCoordinatesAndDateChanges(): void {
     this.weatherService.coordinatesSubject.asObservable().subscribe({
       next: (coordinatesAndDates: CoordinatesAndDates | null) => {

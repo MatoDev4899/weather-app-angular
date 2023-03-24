@@ -1,4 +1,4 @@
-<h1 class="error-message" *ngIf="errorMessage" >{{errorMessage}}</h1>
+<h1 class="error-message" *ngIf="errorMessage">{{ errorMessage }}</h1>
 <div class="card">
   <div *ngIf="weatherDataLoading" class="load-container">
     <div class="load-speeding-wheel"></div>
@@ -7,8 +7,15 @@
     <h3 *ngIf="haveData === false">No data found. Please select a date.</h3>
   </div>
   <div class="invalid-data">
-    <h3 *ngIf="invalidDate" >No data available for selected date. Please choose different date.</h3>
+    <h3 *ngIf="invalidDate">
+      No data available for selected date. Please choose different date.
+    </h3>
   </div>
   <app-user-input></app-user-input>
-  <p-chart type="line" height="79vh" [data]="chartData"></p-chart>
+  <p-chart
+    type="line"
+    height="79vh"
+    [data]="chartData"
+    [options]="options"
+  ></p-chart>
 </div>

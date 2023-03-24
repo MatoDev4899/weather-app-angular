@@ -4,6 +4,7 @@ export class Dataset {
     public data: number[],
     public fill: boolean,
     public borderColor: string,
-    public tension: number
+    public tension: number,
+    public hidden?: boolean
   ) {}
 }
